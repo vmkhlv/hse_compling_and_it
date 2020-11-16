@@ -91,15 +91,14 @@ MLP должен
 Например, 
 ```python3
 class MLP:
-    def __init__(self, n_layers, input_size, output_size, sizes, activation="tanh"):
-        self.n_layers = n_layers
+    def __init__(self, input_size, output_size, sizes, activation="tanh"):
         self.activation = activation
-        self.layers = []
-
-        sizes = [input_size] + sizes + [output_size]
         
+        layers_sizes = [input_size] + sizes + [output_size]
+        
+        self.layers = []
         prev_added_layer = None
-        for layer_in_size, layer_out_size in zip(sizes[:-1], sizes[1:]):
+        for layer_in_size, layer_out_size in zip(layers_sizes[:-1], layers_sizes[1:]):
             self.layers.append(Layer(layer_in_size, layer_out_size, prev_layer=prev_added_layer))
             prev_added_layer = self.layers[-1]
 
@@ -122,7 +121,10 @@ class MLP:
         pred = softmax(curr_layer_output)
         loss = - sum(class_target * math.log(class_pred)
                      for class_target, class_pred in zip(target_mhe, pred))
+        
         # region backward pass
+        dLoss_dLastLayerOutput = [class_pred - class_target
+                                  for class_target, class_pred in zip(target_mhe, pred)]
         # your code here
         # endregion backward pass
 
