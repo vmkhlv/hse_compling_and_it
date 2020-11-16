@@ -70,12 +70,10 @@ class Unit:
 ```python3
 class Layer:
     def __init__(self, input_size, size, prev_layer = None, activation="tanh"):
-        self.n_units = size
         self.activation = activation
-        self.units = []
-        for unit_n in range(self.n_units):
-            self.units.append(Unit(input_size, prev_layer=prev_layer, activation=activation))
-
+        self.units = [Unit(input_size, prev_layer=prev_layer, activation=activation)
+                      for unit_n in range(size)]
+    
     def forward(self):
         return [unit.forward() for unit in self.units]
 
