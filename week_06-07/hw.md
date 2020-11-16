@@ -109,19 +109,20 @@ class MLP:
 
         for layer in self.layers:
             curr_layer_output = layer.forward()
+        last_layer_output = curr_layer_output
         # endregion forward pass
 
         # лосс с софтмаксом удобно считать вместе -- 
         # уж больно хорошая получается производная ошибки
         # по выходу с последнего лося
+        # но адекватнее было бы наверное реализовать его тоже как наследника ActivationF
         def softmax(some_data):
             es_x = [math.e ** x for x in some_data]
             return [e_x / sum(es_x) for e_x in es_x]
 
-        pred = softmax(curr_layer_output)
+        pred = softmax(last_layer_output)
         loss = - sum(class_target * math.log(class_pred)
                      for class_target, class_pred in zip(target_mhe, pred))
-        
         # region backward pass
         dLoss_dLastLayerOutput = [class_pred - class_target
                                   for class_target, class_pred in zip(target_mhe, pred)]
