@@ -30,6 +30,23 @@
 * умеет при заданном том же входном числе (если вам нужно, то каких-то ещё параметрах) вычислить значение производной функции активации.  
 * математика активации -- та, что указана в имени класса (tanh), можно реализовать ещё несколько.
 
+```python3
+class ActivationF(abc.ABC):
+
+    @abc.abstractmethod
+    def calc(self, x):
+        pass
+
+    @abc.abstractmethod
+    def derive(self, x):
+        pass
+
+    @staticmethod
+    def from_name(name="tanh"):
+        if name == "tanh":
+            return TanhF()
+```
+
 ### Unit
 класс `Unit` будет представлять нейрон в нейронной сети.  
 словесно работает нейрон так: 
