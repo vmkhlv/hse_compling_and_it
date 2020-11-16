@@ -101,7 +101,7 @@ class MLP:
         for layer_in_size, layer_out_size in zip(layers_sizes[:-1], layers_sizes[1:]):
             self.layers.append(Layer(layer_in_size, layer_out_size, prev_layer=prev_added_layer))
             prev_added_layer = self.layers[-1]
-
+    
     def train_single_entry(self, features, target_mhe):
         # region forward pass
         for unit in self.layers[0].units:
