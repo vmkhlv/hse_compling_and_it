@@ -35,10 +35,8 @@
 class Unit:
     def __init__(self, input_size, prev_layer: "Layer" = None, activation="tanh"):
         self.input_size = input_size
-        self.activation = ActivationF.from_name(activation)
-        self.weights = []
-        for weight_n in range(input_size):
-            self.weights.append(random.uniform(-1, 1))
+        self.activation = ActF.from_name(activation)
+        self.weights = [random.uniform(-1, 1) for weight_n in range(input_size)]
         self.prev_layer = prev_layer
         # your code here
 
