@@ -3,6 +3,7 @@
 - сверточный слой
 - max pooling, average pooling
 - Conv2D vs Conv1D
+
 Keras:
 - создание и обучение модели
 - сохранение модели, callbacks
